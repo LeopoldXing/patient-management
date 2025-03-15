@@ -2,6 +2,7 @@ package com.leopoldhsing.patient.service;
 
 import com.leopoldhsing.patient.dto.PatientDto;
 import com.leopoldhsing.patient.dto.PatientRequestDto;
+import com.leopoldhsing.patient.exception.EmailAlreadyExistsException;
 import com.leopoldhsing.patient.mapper.PatientMappers;
 import com.leopoldhsing.patient.model.Patient;
 import com.leopoldhsing.patient.repository.PatientRepository;
@@ -24,6 +25,10 @@ public class PatientService {
     }
 
     public PatientDto savePatient(PatientRequestDto patientRequestDto) {
+        if(patientRepository.existsByEmail(patientRequestDto.getEmail())) {
+            throw new EmailAlreadyExistsException(patientRequestDto.getEmail());
+        }
+
         Patient savedPatient = patientRepository.save(PatientMappers.toPatient(patientRequestDto));
 
         return PatientMappers.toPatientDto(savedPatient);
