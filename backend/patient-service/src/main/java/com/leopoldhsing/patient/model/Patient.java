@@ -30,18 +30,19 @@ public class Patient {
     private LocalDate dateOfBirth;
 
     @NotNull
-    private LocalDate registerDate;
+    @Column(name = "registered_date", nullable = false, columnDefinition = "date default CURRENT_DATE")
+    private LocalDate registeredDate;
 
     public Patient() {
     }
 
-    public Patient(UUID id, String name, String email, String address, LocalDate dateOfBirth, LocalDate registerDate) {
+    public Patient(UUID id, String name, String email, String address, LocalDate dateOfBirth, LocalDate registeredDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
-        this.registerDate = registerDate;
+        this.registeredDate = registeredDate;
     }
 
     public UUID getId() {
@@ -84,12 +85,12 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDate getRegisterDate() {
-        return registerDate;
+    public LocalDate getRegisteredDate() {
+        return registeredDate;
     }
 
-    public void setRegisterDate(LocalDate registerDate) {
-        this.registerDate = registerDate;
+    public void setRegisteredDate(LocalDate registerDate) {
+        this.registeredDate = registerDate;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class Patient {
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", registerDate=" + registerDate +
+                ", registerDate=" + registeredDate +
                 '}';
     }
 
@@ -109,7 +110,7 @@ public class Patient {
         if (o == null || getClass() != o.getClass()) return false;
 
         Patient patient = (Patient) o;
-        return Objects.equals(id, patient.id) && Objects.equals(name, patient.name) && Objects.equals(email, patient.email) && Objects.equals(address, patient.address) && Objects.equals(dateOfBirth, patient.dateOfBirth) && Objects.equals(registerDate, patient.registerDate);
+        return Objects.equals(id, patient.id) && Objects.equals(name, patient.name) && Objects.equals(email, patient.email) && Objects.equals(address, patient.address) && Objects.equals(dateOfBirth, patient.dateOfBirth) && Objects.equals(registeredDate, patient.registeredDate);
     }
 
     @Override
@@ -119,7 +120,7 @@ public class Patient {
         result = 31 * result + Objects.hashCode(email);
         result = 31 * result + Objects.hashCode(address);
         result = 31 * result + Objects.hashCode(dateOfBirth);
-        result = 31 * result + Objects.hashCode(registerDate);
+        result = 31 * result + Objects.hashCode(registeredDate);
         return result;
     }
 }
